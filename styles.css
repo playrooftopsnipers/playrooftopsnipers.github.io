@@ -1,0 +1,1145 @@
+/* Reset and base styles */
+:root {
+    --green-7: #5882dd;  /* Định nghĩa biến màu xanh lá */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+    background: var(--green-7); /* Thay thế gradient bằng màu từ biến */
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Add animated background pattern */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* Navigation styles */
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: rgba(44, 44, 44, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo h1 {
+    color: #ff4d4d;
+    font-size: 2rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ff4d4d;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: #ff4d4d;
+}
+
+/* Game container styles */
+#game-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.game-wrapper {
+    position: relative;
+    aspect-ratio: 16/9;
+    background: #000000;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+#game-iframe-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 90;
+}
+
+#game-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+#gameCanvas {
+    width: 100%;
+    height: 100%;
+}
+
+/* Hot Games section styles */
+#hot-games {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.section-title {
+    color: #ff4d4d;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: left;
+    padding-left: 1rem;
+    text-shadow: 0 0 10px rgba(255, 77, 77, 0.5);
+}
+
+.section-title .fa-fire {
+    color: #ff4d4d;
+    margin-right: 10px;
+    animation: flame 1.5s ease-in-out infinite;
+}
+
+@keyframes flame {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding-bottom: 4rem; /* Add space for fixed footer */
+}
+
+.game-card {
+    background: rgba(44, 44, 44, 0.8);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    animation: slideIn 0.5s ease-out;
+    animation-fill-mode: backwards;
+    position: relative;
+    overflow: hidden;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(255, 77, 77, 0.3);
+    background: rgba(44, 44, 44, 0.95);
+}
+
+.game-card img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.game-card img.loaded {
+    opacity: 1;
+}
+
+.game-card h3 {
+    padding: 1rem;
+    color: #ffffff;
+    text-align: center;
+}
+
+.play-btn {
+    display: block;
+    background: linear-gradient(45deg, #ff4d4d, #ff6b6b);
+    box-shadow: 0 4px 15px rgba(255, 77, 77, 0.3);
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 0.8rem;
+    margin: 0 1rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    animation: glow 2s ease-in-out infinite;
+}
+
+.play-btn:hover {
+    background: linear-gradient(45deg, #ff3333, #ff4d4d);
+    box-shadow: 0 6px 20px rgba(255, 77, 77, 0.4);
+}
+
+/* Responsive adjustments for game cards */
+@media (max-width: 768px) {
+    .games-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+    
+    .game-card img {
+        width: 100%;
+        height: 150px;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .main-nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-links {
+        margin-top: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: rgba(44, 44, 44, 0.9);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Game Description styles */
+#game-description {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    margin-top: calc(2rem + 45px); /* Thêm khoảng cách cho nút fullscreen (45px là chiều cao của nút + 10px spacing) */
+}
+
+.description-container {
+    background: rgba(44, 44, 44, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.game-info {
+    flex: 1;
+}
+
+.game-info h2 {
+    color: #ff4d4d;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.game-meta {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.game-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #ffffff;
+}
+
+.game-meta i {
+    color: #ff4d4d;
+}
+
+.game-summary {
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: #e0e0e0;
+}
+
+.game-features h3 {
+    color: #ff4d4d;
+    margin-bottom: 1rem;
+}
+
+.game-features ul {
+    list-style: none;
+}
+
+.game-features li {
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.game-features i {
+    color: #ff4d4d;
+}
+
+.game-thumbnail {
+    display: none;
+}
+
+.play-now-btn {
+    background: linear-gradient(45deg, #ff4d4d, #ff6b6b);
+    box-shadow: 0 4px 15px rgba(255, 77, 77, 0.3);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease;
+    animation: glow 2s ease-in-out infinite;
+}
+
+.play-now-btn:hover {
+    background: linear-gradient(45deg, #ff3333, #ff4d4d);
+    box-shadow: 0 6px 20px rgba(255, 77, 77, 0.4);
+}
+
+/* Responsive adjustments for game description */
+@media (max-width: 968px) {
+    .description-container {
+        flex-direction: column;
+    }
+
+    .game-thumbnail {
+        flex: 0 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .game-meta {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .game-info h2 {
+        font-size: 2rem;
+    }
+}
+
+/* Fullscreen button styles */
+.fullscreen-btn {
+    position: absolute;
+    right: 20px;
+    top: calc(100% + 10px);
+    background: linear-gradient(45deg, #2a3149, #1a1f35);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    z-index: 100;
+}
+
+.fullscreen-btn i {
+    font-size: 1.1rem;
+    color: #ff4d4d;
+    transition: transform 0.3s ease;
+}
+
+.fullscreen-btn:hover {
+    background: linear-gradient(45deg, #1a1f35, #2a3149);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 77, 77, 0.5);
+}
+
+.fullscreen-btn:hover i {
+    transform: scale(1.1);
+    color: #ff6b6b;
+}
+
+/* Active state */
+.fullscreen-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .fullscreen-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .fullscreen-btn i {
+        font-size: 1rem;
+    }
+}
+
+.play-game-btn {
+    position: absolute;
+    left: calc(50% - 80px);
+    bottom: calc(15% - 20px);
+    transform: translateX(-50%);
+    background: linear-gradient(45deg, #ff4d4d, #ff6b6b);
+    box-shadow: 0 4px 15px rgba(255, 77, 77, 0.3);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.play-game-btn:hover {
+    background: linear-gradient(45deg, #ff3333, #ff4d4d);
+    box-shadow: 0 6px 20px rgba(255, 77, 77, 0.4);
+    transform: translateX(-50%) scale(1.1);
+}
+
+.play-game-btn i {
+    font-size: 1.2rem;
+}
+
+/* Cập nhật lại style cho fullscreen button để phù hợp với play button */
+.fullscreen-btn {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Thêm class để ẩn nút play khi game đã start */
+.play-game-btn.hidden {
+    display: none;
+}
+
+/* Animation keyframes */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes slideIn {
+    from { 
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px rgba(255, 77, 77, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(255, 77, 77, 0.8); }
+    100% { box-shadow: 0 0 5px rgba(255, 77, 77, 0.5); }
+}
+
+/* Áp dụng animation cho các phần tử */
+.logo h1 {
+    animation: float 3s ease-in-out infinite;
+}
+
+.play-game-btn {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.game-card {
+    animation: slideIn 0.5s ease-out;
+    animation-fill-mode: backwards;
+}
+
+/* Thêm delay cho từng game card */
+.games-grid .game-card:nth-child(1) { animation-delay: 0.1s; }
+.games-grid .game-card:nth-child(2) { animation-delay: 0.2s; }
+.games-grid .game-card:nth-child(3) { animation-delay: 0.3s; }
+.games-grid .game-card:nth-child(4) { animation-delay: 0.4s; }
+.games-grid .game-card:nth-child(5) { animation-delay: 0.5s; }
+.games-grid .game-card:nth-child(6) { animation-delay: 0.6s; }
+.games-grid .game-card:nth-child(7) { animation-delay: 0.7s; }
+.games-grid .game-card:nth-child(8) { animation-delay: 0.8s; }
+.games-grid .game-card:nth-child(9) { animation-delay: 0.9s; }
+.games-grid .game-card:nth-child(10) { animation-delay: 1s; }
+
+.play-btn, .play-now-btn {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Hover effects enhancement */
+.nav-links a {
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ff4d4d;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.game-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.game-card:hover::before {
+    left: 100%;
+}
+
+/* Smooth scrolling for the whole page */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loading animation for images */
+.game-card img, .game-thumbnail img {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.game-card img.loaded, .game-thumbnail img.loaded {
+    opacity: 1;
+}
+
+/* Add new animations */
+@keyframes backgroundMove {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100px 100px;
+    }
+}
+
+/* Update scrollbar for better visibility */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(44, 44, 44, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #ff4d4d, #ff6b6b);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #ff3333, #ff4d4d);
+}
+
+/* About Website Section */
+#about-website {
+    max-width: 1200px;
+    margin: 2rem auto 4rem;
+    padding: 0 1rem;
+}
+
+.about-container {
+    background: rgba(44, 44, 44, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.about-content h2 {
+    color: #ff4d4d;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.about-item {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(26, 31, 53, 0.5);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.about-item:hover {
+    transform: translateY(-5px);
+}
+
+.about-item i {
+    font-size: 2.5rem;
+    color: #ff4d4d;
+    margin-bottom: 1rem;
+}
+
+.about-item h3 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.about-item p {
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+.about-footer {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.about-footer p {
+    color: #e0e0e0;
+    margin-bottom: 1.5rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.social-links a {
+    color: #ffffff;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #ff4d4d;
+    transform: translateY(-3px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .about-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .about-item {
+        padding: 1rem;
+    }
+}
+
+/* How to Play section styles */
+.how-to-play {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.how-to-play h3 {
+    color: #ff4d4d;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.controls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.player-controls {
+    background: rgba(26, 31, 53, 0.5);
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.player-controls h4 {
+    color: #ff4d4d;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.player-controls ul {
+    list-style: none;
+}
+
+.player-controls li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.8rem;
+    color: #e0e0e0;
+}
+
+.player-controls i {
+    color: #ff4d4d;
+    width: 20px;
+    text-align: center;
+}
+
+.gameplay-tips {
+    background: rgba(26, 31, 53, 0.5);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+.gameplay-tips h4 {
+    color: #ff4d4d;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.gameplay-tips ul {
+    list-style: none;
+}
+
+.gameplay-tips li {
+    margin-bottom: 0.8rem;
+    color: #e0e0e0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.gameplay-tips li::before {
+    content: '•';
+    color: #ff4d4d;
+    position: absolute;
+    left: 0;
+}
+
+/* Fullscreen styles */
+.game-wrapper:fullscreen {
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-wrapper:-webkit-full-screen {
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-wrapper:-moz-full-screen {
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Fullscreen button styles */
+.fullscreen-btn {
+    position: absolute;
+    right: 20px;
+    top: calc(100% + 10px);
+    background: linear-gradient(45deg, #2a3149, #1a1f35);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    z-index: 100;
+}
+
+.fullscreen-btn i {
+    font-size: 1.1rem;
+    color: #ff4d4d;
+    transition: transform 0.3s ease;
+}
+
+.fullscreen-btn:hover {
+    background: linear-gradient(45deg, #1a1f35, #2a3149);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 77, 77, 0.5);
+}
+
+.fullscreen-btn:hover i {
+    transform: scale(1.1);
+    color: #ff6b6b;
+}
+
+/* Active state */
+.fullscreen-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Fullscreen iframe styles */
+.game-wrapper:fullscreen #game-iframe,
+.game-wrapper:-webkit-full-screen #game-iframe,
+.game-wrapper:-moz-full-screen #game-iframe {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    /* Navigation */
+    .main-nav {
+        padding: 0.8rem;
+    }
+
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    /* Game Container */
+    #game-container {
+        margin: 1rem auto;
+        padding: 0 0.5rem;
+    }
+
+    .game-wrapper {
+        border-radius: 5px;
+        margin-bottom: 1rem;
+    }
+
+    /* Play Button */
+    .play-game-btn {
+        font-size: 1.1rem;
+        padding: 12px 24px;
+    }
+
+    /* Fullscreen Button */
+    .fullscreen-btn {
+        right: 10px;
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+
+    /* Game Description */
+    .description-container {
+        padding: 1rem;
+    }
+
+    .game-info h2 {
+        font-size: 1.8rem;
+    }
+
+    .game-meta {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .game-summary {
+        font-size: 0.95rem;
+    }
+
+    /* Controls Grid */
+    .controls-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .player-controls {
+        padding: 1rem;
+    }
+
+    /* Hot Games Section */
+    .games-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+
+    .game-card {
+        margin-bottom: 1rem;
+    }
+
+    .game-card img {
+        width: 100%;
+        height: 120px;
+    }
+
+    .game-card h3 {
+        font-size: 1rem;
+        padding: 0.8rem;
+    }
+
+    .play-btn {
+        padding: 0.6rem;
+        margin: 0 0.8rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    /* About Website Section */
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .about-item {
+        padding: 1rem;
+    }
+
+    .about-item i {
+        font-size: 2rem;
+    }
+
+    .about-item h3 {
+        font-size: 1.2rem;
+    }
+
+    .about-item p {
+        font-size: 0.9rem;
+    }
+
+    /* Social Links */
+    .social-links {
+        gap: 1rem;
+    }
+
+    .social-links a {
+        font-size: 1.3rem;
+    }
+
+    /* Footer */
+    footer {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    /* Touch-specific styles */
+    .play-btn, 
+    .play-game-btn,
+    .fullscreen-btn,
+    .nav-links a {
+        padding: 12px 20px; /* Larger touch targets */
+        min-height: 44px; /* Apple's recommended minimum */
+    }
+
+    /* Improve touch scrolling */
+    body {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Prevent text scaling */
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+
+    /* Better tap highlights */
+    a, button {
+        -webkit-tap-highlight-color: rgba(255, 77, 77, 0.2);
+    }
+}
+
+/* Small phones */
+@media (max-width: 375px) {
+    .logo h1 {
+        font-size: 1.3rem;
+    }
+
+    .game-card img {
+        height: 100px;
+    }
+
+    .play-game-btn {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+
+    .fullscreen-btn {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+}
+
+/* Landscape mode */
+@media (max-height: 500px) and (orientation: landscape) {
+    .nav-links {
+        flex-direction: row;
+    }
+
+    .game-wrapper {
+        aspect-ratio: 16/9;
+        max-height: 70vh;
+    }
+
+    .controls-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Fix for notched phones */
+@supports (padding: max(0px)) {
+    .main-nav, 
+    footer {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+    }
+
+    footer {
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    }
+}
+
+.game-preview {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.preview-image {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Cập nhật z-index cho các phần tử khác */
+.play-game-btn {
+    z-index: 2;
+}
+
+/* Ẩn preview khi game bắt đầu */
+.game-preview.hidden {
+    display: none;
+} 
